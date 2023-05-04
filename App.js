@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { SafeAreaView, StyleSheet} from 'react-native';
-import Navigation from './src/navigation';
+import Navigation from './src/navigation/Navigation';
 import Amplify from "@aws-amplify/core";
 import config from './src/aws-exports';
 

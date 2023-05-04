@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import {
   View, Text,
-  StyleSheet, TextInput,
-  Button,Dimensions
+  StyleSheet,
+  Dimensions
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
