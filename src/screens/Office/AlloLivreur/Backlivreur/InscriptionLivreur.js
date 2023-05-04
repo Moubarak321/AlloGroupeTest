@@ -9,12 +9,14 @@ import { LivreurModel } from '../../../../models';
 import '@azure/core-asynciterator-polyfill';
 import Amplify,{ Storage } from 'aws-amplify';
 import { useNavigation } from '@react-navigation/native';
-
+import CustomButton from '../../../../components/CustomButton/CustomButton';
+import CustomInput from '../../../../components/CustomInput/CustomInput';
+import {useForm} from 'react-hook-form';
 
 
 export default function InscriptionLivreur() {
 		const navigation = useNavigation();
-
+		const {control, handleSubmit, formState:{errors}, watch} = useForm();
   		const [selectedImage, setSelectedImage] = React.useState(null);
   		const [openImagesPicker,setOpenImagesPicker] = React.useState(false);
 
@@ -240,48 +242,47 @@ export default function InscriptionLivreur() {
 							<Text style={{fontSize:18, fontWeight:'bold', color:'white'}}>NOM</Text>    
 				</View>
 
-				<TextInput
-						style={styles.input}
-						onChangeText={setNom}
-						value={nom}
-						placeholder="Nom de famille"
-						required={true}
-						errorMessage="Obligatoire"
+				<CustomInput
+					name='nom'
+					control={control} 
+					placeholder={'Nom de famille'}
+					rules={{
+						required:'Obligatoire',  	
+					}} 
 				/>
-
-
+		
 				<View style={{backgroundColor:'#0A5089', alignItems:'center', marginBottom:10}}>
 						<Text style={{fontSize:18, fontWeight:'bold', color:'white'}}>PRENOM</Text>    
 				</View>    
 				
-				<TextInput
-					style={styles.input}
-					onChangeText={setPrenom}
-					value={prenom}
-					placeholder="Votre prénom"
-					required={true}
-					errorMessage="Obligatoire"
+				<CustomInput
+					name='prenom'
+					control={control} 
+					placeholder={'Votre prénom'}
+					rules={{
+						required:'Obligatoire',  	
+					}} 
 				/>
-
-
-
+				
 				<View style={{backgroundColor:'#0A5089', alignItems:'center', marginBottom:10}}>
 					<Text style={{fontSize:18, fontWeight:'bold', color:'white'}}>NUMERO DE TELEPHONE</Text>    
 				</View>  
 
-				<TextInput
-						style={styles.input}
-						onChangeText={setNumero}
-						value={numero}
-						placeholder="Numéro de téléphone"
-						keyboardType="numeric"
-						required={true}
-						errorMessage="Obligatoire"
-				/>   
-
-
-
-
+				
+				<CustomInput
+					name='numero'
+					control={control} 
+					keyboardType={'numeric'}
+					placeholder={'Numéro de téléphone'}
+					rules={{
+						required:'Obligatoire',  
+						minLenght: {
+							value:8,
+							message:'Votre numéro doit etre de huit  caractère au moins',
+							},	
+					}} 
+				/>
+				
 
 				<View style={{backgroundColor:'#0A5089', alignItems:'center', marginBottom:10}}>
 						<Text style={{fontSize:18, fontWeight:'bold', color:'white'}}>Ajoutez une photo</Text>    
@@ -292,10 +293,11 @@ export default function InscriptionLivreur() {
 							<Text style={styles.buttonText}>Choisir la photo</Text>
 				</TouchableOpacity>
 
-				<Button
-					onPress={onPressInscriptionSuiteLivreur}
-					title="Je veux être livreur"
-					color="#ff6d00"
+				<CustomButton
+					onPress={handleSubmit(onPressInscriptionSuiteLivreur)}
+					text="Je veux être livreur"
+					bgColor="#ff6d00"
+					fgColor='white'
 				/>
 
 

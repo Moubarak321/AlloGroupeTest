@@ -10,7 +10,9 @@ import { FoodCardModel } from '../../../../models';
 import '@azure/core-asynciterator-polyfill';
 import Amplify,{ Storage } from 'aws-amplify';
 import { useNavigation } from '@react-navigation/native';
-
+import CustomButton from '../../../../components/CustomButton';
+import CustomInput from '../../../../components/CustomInput';
+import {useForm} from 'react-hook-form';
 
 
 export default function App() {
@@ -238,67 +240,58 @@ export default function App() {
      				 <Text style={{fontSize:18, fontWeight:'bold', color:'white'}}>Titre du produit</Text>    
    		  	 </View>
 
-
-    		  	<TextInput
-        			style={styles.input}
-        			onChangeText={setNom}
-        			value={nom}
-        			placeholder="Titre du produit"
-        			required={true}
-				errorMessage="Obligatoire"
-        	  	/>
-
+				  <CustomInput 
+					name='nom'
+					control={control}
+					placeholder={'Titre du produit'}
+					rules = {{
+						required:"Obligatoire",
+					}}
+					/>
 
    			<View style={{backgroundColor:'#0A5089', alignItems:'center', marginBottom:10}}>
       				<Text style={{fontSize:18, fontWeight:'bold', color:'white'}}>Prix unitaire du produit</Text>    
     		</View>  
 
-
-    			<TextInput
-      				style={styles.input}
-      				onChangeText={setPrice}
-      				value={price}
-      				placeholder="Prix unitaire"
-      				required={true}
-				keyboardType='numeric'
-      				errorMessage="Obligatoire"
-  			/>   
-
+				<CustomInput 
+					name='price'
+					control={control}
+					keyboardType='numeric'
+					placeholder={'Prix unitaire'}
+					rules = {{
+						required:"Obligatoire",
+					}}
+					/>
+			
    			<View style={{backgroundColor:'#0A5089', alignItems:'center', marginBottom:10}}>
       				<Text style={{fontSize:18, fontWeight:'bold', color:'white'}}>Description du produit</Text>    
     			</View>  
 
 
-
-
-    			<TextInput
-      				style={styles.input}
-      				onChangeText={setDescription}
-      				value={description}
-      				placeholder="Description du produit"
-      				required={true}
-      				errorMessage="Obligatoire"
-				multiline
-  			/>   
+				<CustomInput 
+					name='description'
+					control={control}
+					multiline
+					placeholder={'Description du produit'}
+					rules = {{
+						required:"Cela améliore votre notorité",
+					}}
+					/>
 
    			<View style={{backgroundColor:'#0A5089', alignItems:'center', marginBottom:10}}>
       				<Text style={{fontSize:18, fontWeight:'bold', color:'white'}}>Categorie du produit</Text>    
     			</View>  
 
 
-
-
-    			<TextInput
-      				style={styles.input}
-      				onChangeText={setCategorie}
-      				value={categorie}
-      				placeholder="Categorie du produit"
-      				required={true}
-      				errorMessage="Obligatoire"
-  			/>   
-
-
-
+				<CustomInput 
+					name='categorie'
+					control={control}
+					multiline
+					placeholder={'Categorie du produit'}
+					rules = {{
+						required:"Cela améliore votre notorité",
+					}}
+				/>
 
 
  		 	<View style={{backgroundColor:'#0A5089', alignItems:'center', marginBottom:10}}>

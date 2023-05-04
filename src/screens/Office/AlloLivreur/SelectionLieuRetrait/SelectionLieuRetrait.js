@@ -9,6 +9,11 @@ import {
   } from "react-native-google-places-autocomplete";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { GOOGLE_API_KEY } from "../environements";
+import CustomButton from '../../../../components/CustomButton/CustomButton';
+import CustomInput from '../../../../components/CustomInput/CustomInput';
+import {useForm} from 'react-hook-form';
+
+
 const { width, height } = Dimensions.get("window");
 const ASPECT_RATIO = width / height;
 const LATITUDE_DELTA = 0.02;
@@ -22,7 +27,7 @@ const INITIAL_POSITION = {
 
 const SelectionLieuRetrait = () => {
 	const navigation = useNavigation();
-
+	const {control, handleSubmit, formState:{errors}, watch} = useForm();
 	const [IdentifiantDepart, setIdentifiantDepart] = useState('');
 	const [NumeroDepart, setNumeroDepart] = useState('');
 	const onConfirmationDepart = async (value) => {
@@ -71,29 +76,33 @@ const SelectionLieuRetrait = () => {
 					Personne a contacté au 
 					lieu de livraison
 				</Text>
-				<TextInput
-        			style={{height: 40}}
-					value={IdentifiantDepart}
-        			placeholder="Identifiant"
-       				onChangeText={setIdentifiantDepart}
-					required={true}
-					errorMessage="Aidez le livreur en donnant le prénom de la personne à contacter"
-    
-      			/>
-				<TextInput
-        			style={{height: 40}}
-					value={NumeroDepart}
-        			placeholder="Numéro de téléphone"
-       				onChangeText={setNumeroDepart}
-					keyboardType='numeric'
-					maxLength={11}
-					required={true}
-					errorMessage="Aidez le livreur en donnant le numéro à contacter"
-      			/>
-				<Button 
-					title='Confirmation de lieu de livraison'
+				
+				<CustomInput 
+					name='IdentifiantDepart'
+					control={control}
+					placeholder={'Identifiant'}
+					rules = {{
+						required:'Aidez le livreur en donnant le prénom de la personne à contacter',
+					}}
+				/>
+				<CustomInput 
+					name='NumeroDepart'
+					control={control}
+					placeholder={'Numéro de téléphone'}
+					keyboardType={'numeric'}
+					rules = {{
+						required:'Aidez le livreur en donnant le numéro à contacter',
+						minLenght: {
+							value:11,
+							message:'Votre numéro doit être de huit caractère au moins',
+							},
+					}}
+				/>
+				<CustomButton
+					text='Confirmation de lieu de livraison'
 					onPress={onConfirmationDepart}
-					color='orange'
+					bgColor='orange'
+					fgColor='white'
 				/>
 			</View>
 		</View>

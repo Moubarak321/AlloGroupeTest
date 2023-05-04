@@ -10,11 +10,13 @@ import { FastFoodEntrepriseModel } from '../../../../models';
 import '@azure/core-asynciterator-polyfill';
 import Amplify,{ Storage } from 'aws-amplify';
 import { useNavigation } from '@react-navigation/native';
-
-
+import CustomButton from '../../../../components/CustomButton';
+import CustomInput from '../../../../components/CustomInput';
+import {useForm} from 'react-hook-form';
 
 export default function InscriptionFastGerant() {
 		const navigation = useNavigation();
+		const {control, handleSubmit, formState:{errors}, watch} = useForm();
 
   		const [selectedImage, setSelectedImage] = React.useState(null);
   		const [openImagesPicker,setOpenImagesPicker] = React.useState(false);
@@ -222,7 +224,7 @@ export default function InscriptionFastGerant() {
     		/>
       						</View>:
    
-		 <View style={styles.container}>
+		 <View>
     			<Image
         			source={require('../../../../../assets/images/Logo.png')}
         			resizeMode = 'contain'
@@ -233,15 +235,15 @@ export default function InscriptionFastGerant() {
      				 <Text style={{fontSize:18, fontWeight:'bold', color:'white'}}>ENTREPRISE</Text>    
    		  		</View>
 
-
-    		  	<TextInput
-        			style={styles.input}
-        			onChangeText={setNom}
-        			value={nom}
-        			placeholder="Entreprise"
-        			required={true}
-				errorMessage="Obligatoire"
-        	  	/>
+				<CustomInput 
+					name='nom'
+					control={control}
+					placeholder={'Entreprise'}
+					rules = {{
+						required:"Votre nom d'entreprise est nécessaire",
+					}}
+				/>
+    		  	
 
 
    			<View style={{backgroundColor:'#0A5089', alignItems:'center', marginBottom:10}}>
@@ -250,16 +252,19 @@ export default function InscriptionFastGerant() {
 
 
 
-
-    			<TextInput
-      				style={styles.input}
-      				onChangeText={setNumero}
-      				value={numero}
-      				placeholder="Numéro de téléphone"
-      				keyboardType="numeric"
-      				required={true}
-      				errorMessage="Obligatoire"
-  			/>   
+				<CustomInput 
+					name='numero'
+					control={control}
+					placeholder={'Numéro de téléphone'}
+					keyboardType="numeric"
+					rules = {{
+						required:'Votre numéro est nécessaire',
+						minLenght: {
+							value:8,
+							message:'Votre numéro doit être de huit  caractère au moins',
+							},
+					}}
+				/>
 
 		 	<TouchableOpacity onPress={openLibrary} style={styles.button}>
 			 	<View style={{backgroundColor:'#0A5089', alignItems:'center', marginBottom:10}}>
@@ -269,16 +274,17 @@ export default function InscriptionFastGerant() {
 
 
 
- 			<Button
-        			onPress={onPressInscriptionSuiteFast}
+ 			<CustomButton
+        			onPress={handleSubmit(onPressInscriptionSuiteFast)}
        	 			title="Je suis un Fast Food"
-        			color="#ff6d00"
+        			bgColor="#ff6d00"
+					fgColor='white'
  			/>
 
 
  	</View>
    	 }
- 	 </View>
+ 	 	</View>
   );
 }
 
