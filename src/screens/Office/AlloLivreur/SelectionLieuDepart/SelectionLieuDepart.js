@@ -8,6 +8,10 @@ import {
 	GooglePlacesAutocomplete
 } from "react-native-google-places-autocomplete";
 import { GOOGLE_API_KEY } from "../environements";
+import CustomButton from '../../../../components/CustomButton';
+import CustomInput from '../../../../components/CustomInput';
+import {useForm} from 'react-hook-form';
+
 
 const { width, height } = Dimensions.get("window");
 
@@ -25,6 +29,7 @@ const SelectionLieuDepart = () => {
 	const navigation = useNavigation();
 	const [IdentifiantArrivee, setIdentifiantArrivee] = useState('');
 	const [NumeroArrivee, setNumeroArrivee] = useState('');
+	const {control, handleSubmit, formState:{errors}, watch} = useForm();
 
 	const onPressLieuDepart = async (value) => {
 		try {
@@ -77,28 +82,35 @@ return (
 					Personne a contacté au
 					lieu de récupération
 				</Text>
-				<TextInput
-					style={{ height: 40 }}
-					value={IdentifiantArrivee}
-					placeholder="Prénom"
-					onChangeText={setIdentifiantArrivee}
-					required={true}
-					errorMessage="Aidez le livreur en donnant le prénom  de la personne à contacter"
-				/>
-				<TextInput
-					style={{ height: 40 }}
-					value={NumeroArrivee}
-					placeholder="Numéro de téléphone"
-					onChangeText={setNumeroArrivee}
-					keyboardType='numeric'
-					maxLength={11}
-					required={true}
-					errorMessage="Aidez le livreur en donnant le numéro à contacter"
-				/>
-				<Button
-					title='Confirmation du lieu de récupération'
-					onPress={onPressLieuDepart}
-					color='orange'
+
+				<CustomInput
+					name='IdentifiantArrivee'
+					control={control} 
+					placeholder={'Votre email'}
+					rules={{
+						required:'Aidez le livreur en donnant de votre contact',  	
+					}}
+				/> 
+
+				<CustomInput
+					name='NumeroArrivee'
+					control={control} 
+					placeholder={'Numéro de téléphone'}
+					keyboardType={'numeric'} 
+					rules={{
+						required:'Aidez le livreur en donnant le numéro à contacter',  	
+						minLenght: {
+							value:8,
+							message:'Nous vous prions de revoir le numéro',
+							},
+					}}
+				/> 
+
+				<CustomButton
+					text='Confirmation du lieu de récupération'
+					onPress={handleSubmit(onPressLieuDepart)}
+					bgColor='orange'
+					fgColor='white'
 				/>
 			</View>
 		</View>

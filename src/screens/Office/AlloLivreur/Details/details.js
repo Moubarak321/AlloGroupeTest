@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import {
   View, Text,
+<<<<<<< HEAD
   StyleSheet, TextInput,
   Button,Dimensions
+=======
+  StyleSheet,
+  Dimensions
+>>>>>>> 84e7b0e8f00f085135e374bf3d2b1ddc79c72583
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
@@ -27,8 +32,29 @@ const INITIAL_POSITION = {
 
 
 
-const details = () => {
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import CustomButton from '../../../../components/CustomButton';
+import CustomInput from '../../../../components/CustomInput';
+import {useForm} from 'react-hook-form';
+
+const { width, height } = Dimensions.get("window");
+const ASPECT_RATIO = width / height;
+const LATITUDE_DELTA = 0.02;
+const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
+const INITIAL_POSITION = {
+	latitude: 6.3561,
+	longitude: 2.3833,
+	latitudeDelta: LATITUDE_DELTA,
+	longitudeDelta: LONGITUDE_DELTA,
+};
+
+
+
+
+
+const Details = () => {
   const navigation = useNavigation();
+  const {control, handleSubmit, formState:{errors}, watch} = useForm();
   const [titre, setTitre] = useState('');
   const [message, setMessage] = useState('');
   const onPressTerminerLivraison = async (value) => {
@@ -41,11 +67,15 @@ const details = () => {
       navigation.navigate("AttenteClient");
     } catch (e) {
       console.error("Erreur lors de la sauvegarde des données :", e);
+<<<<<<< HEAD
       //   navigation.navigate("SelectionLieuRetrait");
+=======
+>>>>>>> 84e7b0e8f00f085135e374bf3d2b1ddc79c72583
     }
   };
 
   return (
+<<<<<<< HEAD
     // <View style={{backgroundColor:"white"}}>
     //   <ImageBackground source={livr_moto} resizeMode="cover" style={styles.image}>
 
@@ -98,6 +128,51 @@ const details = () => {
         </View>
 
     </View>
+=======
+      <View>
+        <MapView
+			    style={styles.map}
+			    provider={PROVIDER_GOOGLE}
+			    initialRegion={INITIAL_POSITION}
+		    />
+
+      <View style={styles.root}>
+    
+        <Text style={{ color: 'orange' }}>Titre de la livraison</Text>
+          <View>
+            
+            <CustomInput
+					    name='titre'
+					    control={control} 
+					    placeholder={'ex: Livraison de John'}
+					    rules={{
+						    required:'Donnez un titre pour rendre le tracage facile',  	
+					    }} 
+				    />
+          </View>
+
+          <View style={{ marginTop: 50, marginBottom: 20 }}>
+              <Text style={{ color: 'orange' }}>Détails de la livraison</Text>
+                <CustomInput
+					        name='message'
+					        control={control} 
+					        placeholder={'ex: Poulet, chaussures, Coliers...'}
+					        rules={{
+						        required:'Nous vous invitons à donner ces détails pour la sécurité la marchandisse',  	
+					        }} 
+				        />
+            
+          </View>
+
+          <CustomButton
+            text='Terminez le processus'
+            fgColor='white'
+            bgColor='orange'
+            onPress={handleSubmit(onPressTerminerLivraison)} />
+      </View>
+
+      </View>
+>>>>>>> 84e7b0e8f00f085135e374bf3d2b1ddc79c72583
   )
 }
 const styles = StyleSheet.create({
@@ -158,4 +233,4 @@ const styles = StyleSheet.create({
 	},
 
 });
-export default details;
+export default Details;

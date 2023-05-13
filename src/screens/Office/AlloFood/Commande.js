@@ -11,8 +11,10 @@ import {
 	GooglePlacesAutocomplete
 } from "react-native-google-places-autocomplete";
 import { GOOGLE_API_KEY } from "../../Office/AlloLivreur/environements";
+import CustomButton from '../../../components/CustomButton';
+import CustomInput from '../../../components/CustomInput';
+import {useForm} from 'react-hook-form';
 
-const { width, height } = Dimensions.get("window");
 
 const ASPECT_RATIO = width / height;
 const LATITUDE_DELTA = 0.02;
@@ -26,10 +28,11 @@ const INITIAL_POSITION = {
 
 const Commande = () => {
 	const navigation = useNavigation();
+	const {control, handleSubmit, formState:{errors}, watch} = useForm();
 	const [IdentifiantArrivee, setIdentifiantArrivee] = useState('');
 	const [NumeroArrivee, setNumeroArrivee] = useState('');
 
-	const onPressLieuCommande = async (value) => {
+	const onPressLieuCommande = () => {
 
 		navigation.navigate('AttenteClient');
 	  };
@@ -71,29 +74,35 @@ return (
 					Personne a contacté au
 					lieu de livraison
 				</Text>
-				<TextInput
-					style={{ height: 40 }}
-					value={IdentifiantArrivee}
-					placeholder="Prénom"
-					onChangeText={setIdentifiantArrivee}
-					required={true}
-					errorMessage="Aidez le livreur en donnant le prénom  de la personne à contacter"
+				<CustomInput
+					name='IdentifiantArrivee'
+					control={control} 
+					placeholder={'Prénom'}
+					
+					rules = {{
+						required:'Aidez le livreur en donnant le prénom  de la personne à contacter',
+					}}
+				/> 
+				<CustomInput 
+					name='NumeroArrivee'
+					control={control}
+					placeholder={'Numéro de téléphone'}
+					keyboardType={'numeric'}
+					rules = {{
+						required:'Votre numéro fecilitera le contact',
+						minLenght: {
+							value:8,
+							message:'Aidez le livreur en donnant le numéro à contacter',
+							},
+					}}
 				/>
-				<TextInput
-					style={{ height: 40 }}
-					value={NumeroArrivee}
-					placeholder="Numéro de téléphone"
-					onChangeText={setNumeroArrivee}
-					keyboardType='numeric'
-					maxLength={11}
-					required={true}
-					errorMessage="Aidez le livreur en donnant le numéro à contacter"
-				/>
-				<Button
-					title='Passez la commande'
-					onPress={onPressLieuCommande}
-					color='orange'
-				/>
+
+				<CustomButton 
+					text = "Passez la commande"
+					onPress = {handleSubmit(onPressLieuCommande)}
+					fgColor='white'
+					bgColor='orange'
+				/> 
 			</View>
 		</View>
 

@@ -12,12 +12,22 @@ import { FastFoodEntrepriseModel } from '../../../../models';
 import '@azure/core-asynciterator-polyfill';
 import Amplify, { Storage } from 'aws-amplify';
 import { useNavigation } from '@react-navigation/native';
+<<<<<<< HEAD
 
 import uploadImage from '../../../../components/UploadImage/uploadImage';
 
 
 export default function InscriptionFastGerant() {
 	const navigation = useNavigation();
+=======
+import CustomButton from '../../../../components/CustomButton';
+import CustomInput from '../../../../components/CustomInput';
+import {useForm} from 'react-hook-form';
+
+export default function InscriptionFastGerant() {
+		const navigation = useNavigation();
+		const {control, handleSubmit, formState:{errors}, watch} = useForm();
+>>>>>>> 84e7b0e8f00f085135e374bf3d2b1ddc79c72583
 
 	const [selectedImage, setSelectedImage] = React.useState(null);
 	const [openImagesPicker, setOpenImagesPicker] = React.useState(false);
@@ -220,6 +230,7 @@ export default function InscriptionFastGerant() {
 					marginTop: 60
 				}}>
 
+<<<<<<< HEAD
 					<AssetsSelector
 						Settings={widgetSettings}
 						Errors={widgetErrors}
@@ -227,6 +238,22 @@ export default function InscriptionFastGerant() {
 						Navigator={widgetNavigator} // optional
 					/>
 				</View> :
+=======
+        	<AssetsSelector
+      			Settings={widgetSettings}
+      			Errors={widgetErrors}
+      			Styles={widgetStyles}     // optional
+      			Navigator={widgetNavigator} // optional
+    		/>
+      						</View>:
+   
+		 <View>
+    			<Image
+        			source={require('../../../../../assets/images/Logo.png')}
+        			resizeMode = 'contain'
+					style = {{	width: '50%',height:'40%'}}
+    			/>
+>>>>>>> 84e7b0e8f00f085135e374bf3d2b1ddc79c72583
 
 					<View style={styles.container}>
 						<Image
@@ -239,6 +266,7 @@ export default function InscriptionFastGerant() {
 							<Text style={{ fontSize: 18, fontWeight: 'bold', color: 'white' }}>ENTREPRISE</Text>
 						</View>
 
+<<<<<<< HEAD
 
 						<TextInput
 							style={styles.input}
@@ -248,6 +276,17 @@ export default function InscriptionFastGerant() {
 							required={true}
 							errorMessage="Obligatoire"
 						/>
+=======
+				<CustomInput 
+					name='nom'
+					control={control}
+					placeholder={'Entreprise'}
+					rules = {{
+						required:"Votre nom d'entreprise est nécessaire",
+					}}
+				/>
+    		  	
+>>>>>>> 84e7b0e8f00f085135e374bf3d2b1ddc79c72583
 
 
 						<View style={{ backgroundColor: '#0A5089', alignItems: 'center', marginBottom: 10 }}>
@@ -256,6 +295,7 @@ export default function InscriptionFastGerant() {
 
 
 
+<<<<<<< HEAD
 
 						<TextInput
 							style={styles.input}
@@ -266,6 +306,21 @@ export default function InscriptionFastGerant() {
 							required={true}
 							errorMessage="Obligatoire"
 						/>
+=======
+				<CustomInput 
+					name='numero'
+					control={control}
+					placeholder={'Numéro de téléphone'}
+					keyboardType="numeric"
+					rules = {{
+						required:'Votre numéro est nécessaire',
+						minLenght: {
+							value:8,
+							message:'Votre numéro doit être de huit  caractère au moins',
+							},
+					}}
+				/>
+>>>>>>> 84e7b0e8f00f085135e374bf3d2b1ddc79c72583
 
 						<TouchableOpacity onPress={openLibrary} style={styles.button}>
 							<View style={{ backgroundColor: '#0A5089', alignItems: 'center', marginBottom: 10 }}>
@@ -275,6 +330,7 @@ export default function InscriptionFastGerant() {
 
 
 
+<<<<<<< HEAD
 						<Button
 							onPress={onPressInscriptionSuiteFast}
 							title="Je suis un Fast Food"
@@ -286,6 +342,20 @@ export default function InscriptionFastGerant() {
 			}
 		</View>
 	);
+=======
+ 			<CustomButton
+        			onPress={handleSubmit(onPressInscriptionSuiteFast)}
+       	 			title="Je suis un Fast Food"
+        			bgColor="#ff6d00"
+					fgColor='white'
+ 			/>
+
+
+ 	</View>
+   	 }
+ 	 	</View>
+  );
+>>>>>>> 84e7b0e8f00f085135e374bf3d2b1ddc79c72583
 }
 
 const styles = StyleSheet.create({

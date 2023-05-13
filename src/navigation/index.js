@@ -16,7 +16,7 @@ import Food from '../screens/Office/AlloFood/Food';
 import Office from '../screens/Office/Office';
 import InscriptionFastGerant from '../screens/Office/AlloFood/Gerant/InscriptionFastGerant';
 import InscriptionCardFood from '../screens/Office/AlloFood/Gerant/InscriptionProduit';
-import NavigationTab from './navigation';
+import NavigationTab from './Navigation';
 import DebutLivraison from '../screens/Office/AlloLivreur/DebutLivraison';
 import DetailLivraison from '../screens/Office/AlloLivreur/Details';
 import Commande from '../screens/Office/AlloFood/Commande';
