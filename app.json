@@ -21,10 +21,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/Logo.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.bulldo.Allogroup"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "d4d455a5-5950-4653-807b-08c1f0c4f163"
+      }
     }
   }
 }

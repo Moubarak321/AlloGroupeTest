@@ -103,6 +103,7 @@ const styles = StyleSheet.create({
 		alignItems:'center',
 		padding:20,
 		justifyContent:'center',
+		margin:30
 		},
 	title:{
 		fontSize:20,

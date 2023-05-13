@@ -87,8 +87,8 @@ const Navigation = () => {
 	}
 	return (
 		<NavigationContainer>
-			{/* <Stack.Navigator screenOptions={{headerShown:false}} initialRouteName='Bienvenue'> */}
-			<Stack.Navigator screenOptions={{headerShown:false}} initialRouteName='NavigationTab'>
+			<Stack.Navigator screenOptions={{headerShown:false}} initialRouteName='Bienvenue'>
+			{/* <Stack.Navigator screenOptions={{headerShown:false}} initialRouteName='NavigationTab'> */}
 			
 				
 				{ user ? (
